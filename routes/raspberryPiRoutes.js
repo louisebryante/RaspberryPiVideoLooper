@@ -105,6 +105,11 @@ router.post('/remote', function(req, res){
 		case "subtitle":
 			//pause
 			break;
+		case "jump":
+			//pause
+			var dir = req.body.option;
+			jump(res, dir);
+			break;
 		case "episodes":
 			//get episodes
 			res = getEpisodes(res);
@@ -213,18 +218,49 @@ function back(res){
 }
 
 function getEpisodes(res){
+	var episodes = [];
+	for(var i = 0; i < items.length; i++){
+		episodes.push([i, items[i]]);
+	}
 	res.json({sucess: true, data: items});
 	return res;
 }
 
-function playEpisode(res, episode){
-	for(var i = 0; i < items.length; i++){
-		if(items[i] == episode){
-			setCounter(i);
-		}
+function jump(res, direction){
+	if(direction == 0){
+		player.fwd30();
+	}else if(direction == 1){
+		player.back30();
+	}else{
+		res.json({sucess: false});
+		return res;
 	}
-	player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
 	res.json({sucess: true});
+	return res;
+}
+
+function fast(res, direction){
+	if(direction == 0){
+		player.fastFwd();
+	}else if(direction == 1){
+		player.rewind();
+	}else{
+		res.json({sucess: false});
+		return res;
+	}
+	res.json({sucess: true});
+	return res;
+}
+
+function playEpisode(res, episode){
+	if(getCounter() > episode && episode >= 0){
+		setCounter(i);
+		player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
+		res.json({sucess: true});
+	}else{
+		res.json({sucess: true, message: "episode id too large"});
+	}
+	
 	return res;
 };
 
