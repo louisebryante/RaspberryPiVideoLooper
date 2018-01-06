@@ -112,6 +112,7 @@ router.post('/remote', function(req, res){
 		case "select":
 			//select episodes
 			if(req.body.option){
+				var episode = req.body.option;
 				res = playEpisode(res, episode);
 			}else{
 				res.json({sucess: false});
