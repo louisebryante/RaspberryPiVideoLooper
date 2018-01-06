@@ -1,3 +1,5 @@
+import { echo } from '../../../.cache/typescript/2.6/node_modules/@types/shelljs';
+
 var express = require('express');
 var router = express.Router();
 var shell = require('shelljs');
@@ -105,6 +107,18 @@ router.post('/remote', function(req, res){
 		case "subtitle":
 			//pause
 			break;
+		case "episodes":
+			//get episodes
+			res = getEpisodes(res);
+			break;
+		case "select":
+			//select episodes
+			if(req.body.option){
+				res = playEpisode(res, episode);
+			}else{
+				res.json({sucess: false});
+			}
+			break;
 		default:
 			//do nothing
 			console.log("invalid action");
@@ -198,5 +212,21 @@ function back(res){
 	res.json({sucess: true});
 	return res;
 }
+
+function getEpisodes(res){
+	res.json({sucess: true, data: items});
+	return res;
+}
+
+function playEpisode(res, episode){
+	for(var i = 0; i < items.length; i++){
+		if(items[i] == episode){
+			setCounter(i);
+		}
+	}
+	player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
+	res.json({sucess: true});
+	return res;
+};
 
 module.exports = router;
