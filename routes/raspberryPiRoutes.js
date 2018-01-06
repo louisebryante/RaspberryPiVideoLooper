@@ -77,27 +77,13 @@ fs.readdir(path, function(err, items) {
     }
 });
 
-//console.log(items[0]);
-//player = Omx(path+"/"+items[0], "hdmi", false, 100);
-
-//player.on('close', function () {
-//    console.log("the player closed");
-//});
-
-//setTimeout(function(){
-
-//player.on('close', function () {
-//    console.log("the player closed "+getCounter());
-    //setCounter(getCounter()+1);
-//    player = Omx(path+"/"+getItems()[getCounter()], "hdmi", false, 100);
-//    setCounter(getCounter()+1);
-//    console.log(getCounter());
-//    console.log(player);
-//})}, 1000);
-
 router.use(function(req, res, next) {
     console.log('Something is happening.');
     next();
+});
+
+router.post('/remote', function(req, res){
+
 });
 
 router.get('/', function(req, res) {
