@@ -58,7 +58,7 @@ typings/
 .env
 
 #videos
-.mp4
-.mkv
-.wav
-.avi
+*.mp4
+*.mkv
+*.wav
+*.avi
