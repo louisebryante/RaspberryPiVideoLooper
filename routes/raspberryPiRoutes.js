@@ -227,7 +227,7 @@ function getEpisodes(res){
 	for(var i = 0; i < items.length; i++){
 		episodes.push([i, items[i]]);
 	}
-	res.json({sucess: true, data: items});
+	res.json({sucess: true, data: episodes});
 	return res;
 }
 
