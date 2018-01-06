@@ -85,7 +85,7 @@ router.use(function(req, res, next) {
 
 router.post('/remote', function(req, res){
 
-	console.log("req.body", req);
+	console.log("req.body", req.body);
 	var action = req.body.action;
 
 	switch(action) {
