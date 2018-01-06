@@ -2,80 +2,82 @@ var express = require('express');
 var router = express.Router();
 var shell = require('shelljs');
 var fs = require('fs');
-var Omx = require('node-omxplayer');
-var player = null;
-var i = 0;
-var count = 0;
-var items = [];
+var player = require('../controllers/omxPlayerController');
 
-var path = "./Videos/";
+// var Omx = require('node-omxplayer');
+// var player = null;
+// var i = 0;
+// var count = 0;
+// var items = [];
 
-function setCounter(k){
-    i = k%count;
-}
+// var path = "./Videos/";
 
-function setCount(k){
-    count = k;
-}
+// function setCounter(k){
+//     i = k%count;
+// }
 
-function getCounter(){
-    return i;
-}
+// function setCount(k){
+//     count = k;
+// }
 
-function getCount(){
-    return count;
-}
+// function getCounter(){
+//     return i;
+// }
 
-function getItems(){
-    return items;
-}
+// function getCount(){
+//     return count;
+// }
 
-function setItems(item){
-    items = item;
-}
+// function getItems(){
+//     return items;
+// }
 
-fs.readdir(path, function(err, items) {
-    if(!err){
-	//console.log(items);
+// function setItems(item){
+//     items = item;
+// }
 
-	for(var i = 0; i < items.length; i++){
-	    if(!(/\.(mp4|avi|mkv|mpeg)$/i).test(items[i])){
-		items.splice(i, 1);
-	    }
-	}
+// fs.readdir(path, function(err, items) {
+//     if(!err){
+// 	//console.log(items);
 
-	console.log(items);
+// 	for(var i = 0; i < items.length; i++){
+// 	    if(!(/\.(mp4|avi|mkv|mpeg)$/i).test(items[i])){
+// 		items.splice(i, 1);
+// 	    }
+// 	}
 
-	setItems(items);
+// 	console.log(items);
 
-	setCount(items.length);
+// 	setItems(items);
 
-	//player = Omx(path+"/"+items[i], "hdmi", false, 100);
+// 	setCount(items.length);
 
-	//console.log(items[0]);
-	if(items.length > 0){
-	player = Omx(path+"/"+items[0], "hdmi", false, 100);
+// 	//player = Omx(path+"/"+items[i], "hdmi", false, 100);
 
-	player.on('close', function () {
-	    console.log("the player closed");
-	});
-	}
+// 	//console.log(items[0]);
+// 	if(items.length > 0){
+// 	player = Omx(path+"/"+items[0], "hdmi", false, 100);
 
-	setTimeout(function(){
+// 	player.on('close', function () {
+// 	    console.log("the player closed");
+// 	});
+// 	}
 
-	    player.on('close', function () {
-		console.log("the player closed "+getCounter());
-		setCounter(getCounter()+1);
-		player = Omx(path+"/"+getItems()[getCounter()], "hdmi", false, 100);
-		//setCounter(getCounter()+1);
-		console.log(getCounter());
-		console.log(player);
-	    })}, 1000);
+// 	setTimeout(function(){
+
+// 	    player.on('close', function () {
+// 		console.log("the player closed "+getCounter());
+// 		setCounter(getCounter()+1);
+// 		player = Omx(path+"/"+getItems()[getCounter()], "hdmi", false, 100);
+// 		//setCounter(getCounter()+1);
+// 		console.log(getCounter());
+// 		console.log(player);
+// 	    })}, 1000);
 	
-    }else{
-	console.log(err);
-    }
-});
+//     }else{
+// 	console.log(err);
+//     }
+// });
 
 //console.log(items[0]);
 //player = Omx(path+"/"+items[0], "hdmi", false, 100);
