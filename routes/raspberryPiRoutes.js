@@ -110,6 +110,11 @@ router.post('/remote', function(req, res){
 			var dir = req.body.option;
 			jump(res, dir);
 			break;
+		case "fast":
+			//pause
+			var dir = req.body.option;
+			fast(res, dir);
+			break;
 		case "episodes":
 			//get episodes
 			res = getEpisodes(res);
