@@ -8,6 +8,10 @@ app.use(function (req, res, next) {
     var method = req.method;
     var url = req.url;
 
+    req.on('data', function (chunk) {
+      body += chunk;
+    });
+
     console.log((++num) + ". IP " + ip + " " + method + " " + url);
     next();
 });
