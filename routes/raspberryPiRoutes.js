@@ -1,5 +1,3 @@
-import { echo } from '../../../.cache/typescript/2.6/node_modules/@types/shelljs';
-
 var express = require('express');
 var router = express.Router();
 var shell = require('shelljs');
