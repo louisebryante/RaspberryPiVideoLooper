@@ -53,11 +53,13 @@ fs.readdir(path, function(err, items) {
 	//player = Omx(path+"/"+items[i], "hdmi", false, 100);
 
 	console.log(items[0]);
+	if(items.length > 0){
 	player = Omx(path+"/"+items[0], "hdmi", false, 100);
 
 	player.on('close', function () {
 	    console.log("the player closed");
 	});
+	}
 
 	setTimeout(function(){
 
