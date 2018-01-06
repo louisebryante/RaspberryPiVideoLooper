@@ -170,20 +170,25 @@ router.get('/files', function(req, res){
 
 function play(){
 	player.play();
+	res.json({sucess: true});
 }
 
 function pause(){
 	player.pause();
+	console.log("pausing.")
+	res.json({sucess: true});
 }
 
 function skip(){
 	setCounter(getCounter()+1);
-    player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
+	player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
+	res.json({sucess: true});
 }
 
 function back(){
 	setCounter(getCounter()-1);
-    player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
+	player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
+	res.json({sucess: true});
 }
 
 module.exports = router;
