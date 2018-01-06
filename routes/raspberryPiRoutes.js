@@ -259,7 +259,7 @@ function fast(res, direction){
 
 function playEpisode(res, episode){
 	if(getCounter() > episode && episode >= 0){
-		setCounter(i);
+		setCounter(episode);
 		player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
 		res.json({sucess: true});
 	}else{
