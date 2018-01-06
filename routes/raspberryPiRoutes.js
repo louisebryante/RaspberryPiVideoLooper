@@ -7,6 +7,7 @@ var player = null;
 var i = 0;
 var count = 0;
 var items = [];
+var volume = 100;
 
 var path = "./Videos/";
 
@@ -54,7 +55,7 @@ fs.readdir(path, function(err, items) {
 
 	//console.log(items[0]);
 	if(items.length > 0){
-	player = Omx(path+"/"+items[0], "hdmi", false, 100);
+	player = Omx(path+"/"+items[0], "hdmi", false, volume);
 
 	player.on('close', function () {
 	    console.log("the player closed");
@@ -66,7 +67,7 @@ fs.readdir(path, function(err, items) {
 	    player.on('close', function () {
 		console.log("the player closed "+getCounter());
 		setCounter(getCounter()+1);
-		player = Omx(path+"/"+getItems()[getCounter()], "hdmi", false, 100);
+		player = Omx(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
 		//setCounter(getCounter()+1);
 		console.log(getCounter());
 		console.log(player);
@@ -83,6 +84,30 @@ router.use(function(req, res, next) {
 });
 
 router.post('/remote', function(req, res){
+	var action = req.params.action;
+
+	switch(action) {
+		case "skip":
+			skip();
+			break;
+		case "back":
+			back();
+			break;
+		case "pause":
+			pause();
+			break;
+		case "play":
+			play();
+			break;
+		case "subtitle":
+			//pause
+			break;
+		default:
+			//do nothing
+			console.log("invalid action");
+			break;
+			
+	}
 
 });
 
@@ -99,7 +124,7 @@ router.get('/jump', function(req, res){
 router.get('/skip', function(req, res){
 
     setCounter(getCounter()+1);
-    player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, 100);
+    player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
     //setCounter(getCounter()+1);
     console.log(player);
     res.json({sucess: true});
@@ -143,5 +168,23 @@ router.get('/files', function(req, res){
 	}
     });
 });
+
+function play(){
+	player.play();
+}
+
+function pause(){
+	player.pause();
+}
+
+function skip(){
+	setCounter(getCounter()+1);
+    player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
+}
+
+function back(){
+	setCounter(getCounter()-1);
+    player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
+}
 
 module.exports = router;
