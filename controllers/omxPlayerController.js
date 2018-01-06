@@ -85,7 +85,8 @@ fs.readdir(path, function(err, items) {
     player.getCounter = function (){
         return i;
     }
+
+    module.exports = player;
 });
 
 
-module.exports = player;
