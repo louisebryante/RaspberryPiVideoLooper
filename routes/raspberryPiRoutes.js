@@ -36,6 +36,14 @@ function setItems(item){
 
 fs.readdir(path, function(err, items) {
     if(!err){
+	//console.log(items);
+
+	for(var i = 0; i < items.length; i++){
+	    if(!(/\.(mp4|avi|mkv|mpeg)$/i).test(items[i])){
+		items.splice(i, 1);
+	    }
+	}
+
 	console.log(items);
 
 	setItems(items);
