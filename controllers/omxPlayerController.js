@@ -78,7 +78,13 @@ fs.readdir(path, function(err, items) {
         return items;
     }
 
+    player.setCounter = function (num){
+        i = k%count;
+    }
 
+    player.getCounter = function (){
+        return i;
+    }
 });
 
 
