@@ -84,7 +84,6 @@ router.use(function(req, res, next) {
 });
 
 router.post('/remote', function(req, res){
-	var action = req.params.action;
 
 	switch(action) {
 		case "skip":
