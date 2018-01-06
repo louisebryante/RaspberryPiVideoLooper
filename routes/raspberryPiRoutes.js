@@ -55,11 +55,11 @@ fs.readdir(path, function(err, items) {
 
 	//console.log(items[0]);
 	if(items.length > 0){
-	player = Omx(path+"/"+items[0], "hdmi", false, volume);
+		player = Omx(path+"/"+items[0], "hdmi", false, volume);
 
-	player.on('close', function () {
-	    console.log("the player closed");
-	});
+		player.on('close', function () {
+			console.log("the player closed");
+		});
 	}
 
 	setTimeout(function(){
@@ -71,7 +71,8 @@ fs.readdir(path, function(err, items) {
 		//setCounter(getCounter()+1);
 		console.log(getCounter());
 		console.log(player);
-	    })}, 1000);
+	
+})}, 1000);
 	
     }else{
 	console.log(err);
@@ -90,16 +91,16 @@ router.post('/remote', function(req, res){
 
 	switch(action) {
 		case "skip":
-			skip();
+			res = skip(res);
 			break;
 		case "back":
-			back();
+			res = back(res);
 			break;
 		case "pause":
-			pause();
+			res = pause(res);
 			break;
 		case "play":
-			play();
+			res = play(res);
 			break;
 		case "subtitle":
 			//pause
@@ -171,23 +172,31 @@ router.get('/files', function(req, res){
     });
 });
 
-function play(){
+function play(res){
 	player.play();
+	res.json({sucess: true});
+	return res;
 }
 
-function pause(){
+function pause(res){
 	player.pause();
-	console.log("pausing.")
+	console.log("pausing.");
+	res.json({sucess: true});
+	return res;
 }
 
-function skip(){
+function skip(res){
 	setCounter(getCounter()+1);
 	player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
+	res.json({sucess: true});
+	return res;
 }
 
-function back(){
+function back(res){
 	setCounter(getCounter()-1);
 	player.newSource(path+"/"+getItems()[getCounter()], "hdmi", false, volume);
+	res.json({sucess: true});
+	return res;
 }
 
 module.exports = router;
